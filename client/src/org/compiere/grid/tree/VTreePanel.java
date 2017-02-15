@@ -493,6 +493,15 @@ public final class VTreePanel extends CPanel
 	
 
 	/**
+	 *  Get currently selected node
+	 *  @return MTreeNode
+	 */
+	public MTreeNode getSelectedNode()
+	{
+		return m_selectedNode;
+	}   //  getSelectedNode
+
+	/**
 	 *  Enter Key
 	 *  @param e event
 	 */
@@ -550,6 +559,7 @@ public final class VTreePanel extends CPanel
 				//	compare in upper case
 				if (nd.toString().toUpperCase().indexOf(search.toUpperCase()) != -1)
 				{
+					System.out.print(nd.toString().toUpperCase());
 					found = true;
 					TreePath treePath = new TreePath(nd.getPath());
 					tree.setSelectionPath(treePath);
@@ -622,15 +632,6 @@ public final class VTreePanel extends CPanel
 
 	}   //  mouseClicked
 
-
-	/**
-	 *  Get currently selected node
-	 *  @return MTreeNode
-	 */
-	public MTreeNode getSelectedNode()
-	{
-		return m_selectedNode;
-	}   //  getSelectedNode
 
 	/**
 	 *  Search Field

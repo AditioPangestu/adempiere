@@ -44,6 +44,7 @@ import org.adempiere.webui.component.CWindowToolbar;
 import org.adempiere.webui.component.IADTab;
 import org.adempiere.webui.component.IADTabList;
 import org.adempiere.webui.component.Listbox;
+import org.adempiere.webui.component.Messagebox;
 import org.adempiere.webui.component.Window;
 import org.adempiere.webui.editor.WButtonEditor;
 import org.adempiere.webui.event.ActionEvent;
@@ -953,15 +954,23 @@ public abstract class AbstractADWindowPanel extends AbstractUIPart implements To
      */
     public boolean onExit()
     {
-    	String message = Msg.getMsg(ctx, "SaveBeforeClose");
-
     	if (!boolChanges)
     	{
     		return true;
     	}
-    	else
-    		FDialog.info(this.curWindowNo, null, message);
-
+    	else 
+    	{
+    		int response = FDialog.askSave(this.curWindowNo, null, "SaveChanges?");
+    		if (response ==  Messagebox.YES)
+            {
+    			onSave(true);
+    			return true;
+            } 
+    		else if (response == Messagebox.NO)
+            {
+    			return true;
+            }
+    	}
     	return false;
     }
 

@@ -260,7 +260,7 @@ public class FDialog
         try
         {
             int response = Messagebox.showDialog(out, AEnv.getDialogHeader(Env.getCtx(), windowNo), Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
-
+            System.out.println(response);
             return (response == Messagebox.OK);
         }
         catch (InterruptedException ex)
@@ -285,9 +285,52 @@ public class FDialog
     public static boolean ask(int windowNo, Component comp, String adMessage)
     {
     	// Display the message with no clear text component.
-    	ask(windowNo, comp, adMessage, null);
-    	
-        return true;
+    	return ask(windowNo, comp, adMessage, null);
+    }
+    
+    /**************************************************************************
+	 *	Save Question with question icon and (YES) (NO) (Cancel) buttons
+	 *
+	 *	@param	WindowNo	Number of Window
+	 *  @param  c           Container (owner)
+	 *	@param	AD_Message	Message to be translated
+	 *	@param	msg			Additional clear text message
+	 *
+	 *	@return true, if OK
+	 */    
+    public static int askSave(int windowNo, Component comp, String adMessage, String msg)
+    {
+    	String out = constructMessage(adMessage, msg);
+		
+        try
+        {
+            int response = Messagebox.showDialog(out, AEnv.getDialogHeader(Env.getCtx(), windowNo), Messagebox.YES | Messagebox.NO |  Messagebox.CANCEL, Messagebox.QUESTION);
+            System.out.println(response);
+            return (response);
+        }
+        catch (InterruptedException ex)
+        {
+			// Restore the interrupted status
+            Thread.currentThread().interrupt();
+        }
+		
+		return 999;
+    }
+    
+    /**************************************************************************
+	 *	Save Question with question icon and (Yes) (No) (Cancel) buttons
+	 *
+	 *	@param	WindowNo	Number of Window
+	 *  @param  c           Container (owner)
+	 *	@param	AD_Message	Message to be translated
+	 *
+	 *	@return true, if OK
+	 */
+    
+    public static int askSave(int windowNo, Component comp, String adMessage)
+    {
+    	// Display the message with no clear text component.
+    	return askSave(windowNo, comp, adMessage, null);
     }
     
     /**
